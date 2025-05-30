@@ -1,0 +1,139 @@
+/* HomePage.css */
+
+/* Hero Section Styles */
+.hero-section {
+  background: #e0f2fe; /* Mockup: .wf-hero background */
+  padding: 4rem 2rem;
+  text-align: center;
+  border-bottom: 1px solid #bae6fd; /* Light border for separation */
+}
+
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-section h1 {
+  font-size: 2.5rem; /* Adjusted from mockup's 3rem for better fit */
+  color: #0c4a6e;   /* Mockup: .wf-hero h1 color */
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.hero-section p {
+  font-size: 1.15rem; /* Adjusted from mockup's 1.25rem */
+  color: #075985;    /* Mockup: .wf-hero p color */
+  margin-bottom: 2rem;
+  line-height: 1.7;
+}
+
+.hero-search-container {
+  margin-bottom: 2rem;
+}
+
+.hero-search-bar {
+  padding: 0.85rem 1.2rem; /* Slightly increased padding */
+  border: 1px solid #38bdf8; /* Mockup: .wf-search-bar border */
+  border-radius: 0.375rem; /* Slightly more rounded */
+  width: 70%;               /* Mockup: .wf-search-bar width 50%, increased for prominence */
+  max-width: 600px;
+  font-size: 1rem;
+  color: #334155;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.hero-search-bar::placeholder {
+  color: #9ca3af;
+}
+
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem; /* Space between buttons */
+}
+
+.hero-button {
+  padding: 0.75rem 1.75rem; /* Slightly adjusted padding */
+  border: none;
+  border-radius: 0.375rem; /* Consistent rounded corners */
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.hero-button.primary {
+  background: #0ea5e9; /* Mockup: .wf-button background */
+  color: white;
+}
+
+.hero-button.primary:hover {
+  background: #0284c7; /* Darker shade on hover */
+  transform: translateY(-1px);
+}
+
+.hero-button.secondary {
+  background: #38bdf8; /* Mockup: .wf-button-secondary background */
+  color: white; /* Ensuring text is white for this bg */
+}
+
+.hero-button.secondary:hover {
+  background: #0ea5e9; /* Slightly darker/related shade on hover */
+  transform: translateY(-1px);
+}
+
+
+/* Featured Agents Section Styles (Placeholder) */
+.featured-agents-section {
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.featured-agents-section h2 {
+  font-size: 2rem;
+  color: #1e293b; /* Darker title color */
+  margin-bottom: 2rem;
+  font-weight: 600;
+}
+
+.featured-agents-grid {
+  /* Styles for the grid/carousel will be added when AgentCard is implemented */
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping for responsiveness */
+  justify-content: center;
+  gap: 1.5rem; /* Space between cards */
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-section h1 {
+    font-size: 2rem; /* Smaller for mobile */
+  }
+
+  .hero-section p {
+    font-size: 1rem;
+  }
+
+  .hero-search-bar {
+    width: 90%; /* Wider on mobile */
+    font-size: 0.9rem;
+  }
+
+  .hero-buttons {
+    flex-direction: column; /* Stack buttons on mobile */
+    align-items: center;
+  }
+
+  .hero-button {
+    width: 80%; /* Make buttons wider */
+    max-width: 300px; /* But not too wide */
+    padding: 0.85rem 1.5rem; /* Adjust padding for stacked buttons */
+  }
+
+  .featured-agents-section h2 {
+    font-size: 1.75rem;
+  }
+}

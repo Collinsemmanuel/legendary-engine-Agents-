@@ -1,0 +1,42 @@
+/* Reset margin and padding for all elements */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0; /* Already reset by *, but good to be explicit for body */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #f8fafc; /* Mockup body background */
+  color: #334155;       /* Mockup body text color */
+  line-height: 1.6;      /* Mockup body line height */
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Additional global styles can be added here */
+a {
+  color: #3b82f6; /* Example link color, can be customized */
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit; /* Inherit font from body */
+}
+
+input, textarea, select, button {
+  font-family: inherit; /* Ensure form elements inherit global font */
+}

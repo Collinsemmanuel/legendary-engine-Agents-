@@ -1,0 +1,244 @@
+/* BuyerDashboardPage.css */
+
+.dashboard-page-container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.dashboard-header h1 {
+  font-size: 1.8rem; /* Adjusted from mockup's 2rem for balance */
+  color: #1e293b;
+}
+
+/* Reusing .wf-button styles if defined globally, or define specific dashboard button styles */
+.dashboard-header .wf-button.primary {
+  background-color: #3b82f6;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  text-decoration: none;
+  border-radius: 0.375rem;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+.dashboard-header .wf-button.primary:hover {
+  background-color: #2563eb;
+}
+
+/* Summary Statistic Cards */
+.dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive cards */
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.stat-card {
+  background: white; /* Mockup: .stat-card background */
+  padding: 1.5rem;
+  border-radius: 0.5rem; /* Mockup: .stat-card border-radius */
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05); /* Mockup: .stat-card box-shadow */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.07);
+}
+
+.stat-card h4 {
+  font-size: 1rem;
+  color: #475569; /* Mockup: .stat-card-title */
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.stat-card p {
+  font-size: 2rem; /* Mockup: .stat-card-value */
+  color: #1e293b; /* Mockup: .stat-card-value */
+  font-weight: 600;
+}
+
+/* Purchases Section */
+.purchases-section {
+  background: white;
+  padding: 1.5rem 2rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.03);
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem; /* Increased margin */
+}
+
+.table-header h2 {
+  font-size: 1.4rem; /* Mockup: .section-title */
+  color: #334155;
+}
+
+.table-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+/* Reusing .wf-select and .wf-button or define specific styles */
+.filter-select.wf-select { /* Assuming .wf-select is globally defined or defined in a shared file */
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem;
+  border: 1px solid #cbd5e1;
+  font-size: 0.85rem;
+  min-width: 150px;
+}
+.export-button.wf-button.secondary {
+  background-color: #64748b;
+  color: white;
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  border-radius: 0.375rem;
+  border: none;
+  transition: background-color 0.2s ease;
+}
+.export-button.wf-button.secondary:hover {
+  background-color: #475569;
+}
+
+.table-responsive-wrapper {
+  overflow-x: auto; /* Enable horizontal scrolling for the table on small screens */
+}
+
+.wf-table.purchases-table {
+  width: 100%;
+  border-collapse: collapse; /* Mockup: .wf-table */
+  font-size: 0.9rem;
+}
+
+.wf-th, .wf-td {
+  padding: 0.9rem 1rem; /* Mockup: .wf-th, .wf-td padding */
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0; /* Mockup: .wf-th, .wf-td border */
+}
+
+.wf-th {
+  background-color: #f8fafc; /* Mockup: .wf-th background */
+  font-weight: 600; /* Mockup: .wf-th font-weight */
+  color: #475569; /* Mockup: .wf-th color */
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+
+.agent-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.agent-icon {
+  font-size: 1.5rem; /* Adjust as needed */
+}
+.agent-info .agent-name-link {
+  font-weight: 500;
+  color: #3b82f6;
+  text-decoration: none;
+  display: block;
+}
+.agent-info .agent-name-link:hover {
+  text-decoration: underline;
+}
+.agent-category {
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.status-badge {
+  padding: 0.3rem 0.6rem; /* Mockup: .status padding */
+  border-radius: 0.25rem; /* Mockup: .status border-radius */
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.status-active {
+  background: #dcfce7; /* Mockup: .status-active background */
+  color: #166534;      /* Mockup: .status-active color */
+}
+.status-inactive {
+  background: #fee2e2; /* Example for inactive */
+  color: #991b1b;
+}
+
+.actions-cell .wf-button-link {
+  background: none;
+  border: none;
+  color: #3b82f6;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  margin-right: 0.5rem;
+  text-decoration: none;
+  font-size: 0.85rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s ease;
+}
+.actions-cell .wf-button-link:hover {
+  background-color: #eff6ff;
+  text-decoration: underline;
+}
+.actions-cell .deploy-button {
+    color: #059669; /* Green for deploy */
+}
+.actions-cell .deploy-button:hover {
+    background-color: #dcfce7;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* Responsive Design for Dashboard */
+@media (max-width: 768px) { /* Tablet */
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  .dashboard-stats {
+    grid-template-columns: 1fr; /* Stack stat cards */
+  }
+  .table-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .table-actions {
+    width: 100%;
+    flex-direction: column;
+    gap: 0.5rem; /* Smaller gap for stacked mobile actions */
+  }
+  .filter-select.wf-select, .export-button.wf-button.secondary {
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) { /* Mobile */
+  .dashboard-page-container {
+    padding: 15px;
+  }
+  .dashboard-header h1 { font-size: 1.6rem; }
+  .stat-card p { font-size: 1.75rem; }
+  .purchases-section { padding: 1rem; }
+  .table-header h2 { font-size: 1.2rem; }
+
+  /* For very small screens, table cells might need more specific adjustments
+     if horizontal scrolling isn't enough, e.g., display: block on td */
+}

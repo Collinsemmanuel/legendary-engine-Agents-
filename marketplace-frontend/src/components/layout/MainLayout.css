@@ -1,0 +1,251 @@
+/* Main Layout Styles */
+.main-layout-header {
+  background: #f1f5f9; /* Based on .wf-header */
+  border-bottom: 1px solid #e2e8f0; /* Based on .wf-header */
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky; /* Making header sticky */
+  top: 0;
+  z-index: 1000; /* Ensure header is above other content */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Optional: subtle shadow for sticky header */
+}
+
+.main-layout-logo a {
+  font-size: 1.5rem; /* Based on .wf-logo */
+  font-weight: bold;
+  color: white; /* Based on .wf-logo */
+  background: #3b82f6; /* Based on .wf-logo */
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem; /* Based on .wf-logo */
+  text-decoration: none;
+  display: inline-block;
+}
+
+.main-layout-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; 
+}
+
+/* Desktop Navigation styles */
+.desktop-nav {
+  display: flex; /* Shown by default on desktop */
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.main-layout-nav-item {
+  color: #334155; /* Based on .wf-nav-item */
+  text-decoration: none;
+  padding: 0.6rem 0.8rem; /* Adjusted padding */
+  border-radius: 0.25rem; /* Based on .wf-nav-item:hover for consistency */
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  font-size: 0.95rem;
+}
+
+.main-layout-nav-item:hover {
+  background: #e2e8f0; /* Based on .wf-nav-item:hover */
+  color: #1e293b;
+  text-decoration: none;
+}
+
+/* Specific style for logout button to make it look like other nav items */
+.main-layout-logout-button {
+  background: none;
+  border: none;
+  color: #334155; /* Match nav item color */
+  cursor: pointer;
+  padding: 0.6rem 0.8rem; /* Match nav item padding */
+  border-radius: 0.25rem; /* Match nav item border-radius */
+  font-size: 0.95rem; /* Match nav item font size */
+  text-align: left;
+  font-family: inherit; /* Ensure button inherits font */
+}
+
+.main-layout-logout-button:hover {
+  background: #e2e8f0; 
+  color: #1e293b;
+}
+
+/* User Dropdown Styles */
+.user-dropdown-container {
+  position: relative;
+  display: inline-block; /* Or flex if part of a flex layout */
+}
+
+.user-dropdown-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex; /* To align text and arrow */
+  align-items: center;
+  gap: 0.3rem; /* Space between username and arrow */
+}
+
+.user-dropdown-menu {
+  position: absolute;
+  top: 100%; /* Position below the toggle button */
+  right: 0; /* Align to the right of the toggle button */
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.25rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  z-index: 1010; /* Above header's z-index */
+  min-width: 160px; /* Minimum width for dropdown items */
+  padding: 0.5rem 0; /* Padding around the list of items */
+}
+
+.user-dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 0.6rem 1rem; /* Padding for each item */
+  text-align: left;
+  color: #334155;
+  text-decoration: none;
+  font-size: 0.9rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.user-dropdown-item:hover {
+  background-color: #f1f5f9; /* Hover background for items */
+  color: #1e293b;
+}
+.user-dropdown-item.logout-button { /* If you need specific styling for logout */
+  color: #ef4444; /* Red for logout */
+}
+.user-dropdown-item.logout-button:hover {
+  background-color: #fee2e2; /* Lighter red on hover */
+  color: #c0392b;
+}
+
+
+/* Mobile Menu Styles */
+.mobile-menu-icon {
+  display: none; /* Hidden on desktop */
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  color: #334155;
+  cursor: pointer;
+}
+
+.mobile-only-nav {
+    display: none; /* Hidden by default */
+    flex-direction: column;
+    width: 100%;
+    background-color: #f1f5f9; /* Same as header or slightly different */
+    position: absolute;
+    top: 100%; /* Position below the header (after sticky positioning takes effect) */
+    left: 0;
+    right: 0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    z-index: 999; /* Below header but above content */
+    border-top: 1px solid #e2e8f0;
+}
+.mobile-only-nav.mobile-nav-open {
+    display: flex;
+}
+
+.mobile-only-nav .main-layout-nav-item,
+.mobile-only-nav .main-layout-logout-button {
+    width: 100%;
+    text-align: left; /* Or center if preferred for mobile dropdown */
+    padding: 0.8rem 2rem; /* Consistent padding with header's horizontal padding */
+    border-bottom: 1px solid #e2e8f0; /* Separators for mobile items */
+}
+.mobile-only-nav .main-layout-nav-item:last-child,
+.mobile-only-nav .main-layout-logout-button:last-child {
+    border-bottom: none;
+}
+.mobile-logout { /* For the logout button specifically in mobile nav if needed */
+    color: #ef4444;
+}
+
+
+.main-layout-container {
+  max-width: 1200px; /* Based on .container */
+  margin: 20px auto; /* Added top/bottom margin */
+  padding: 20px;     /* Based on .container */
+  background-color: #ffffff; /* Optional: white background for content area */
+  box-shadow: 0 0 10px rgba(0,0,0,0.03); /* Optional: subtle shadow for container */
+  border-radius: 4px; /* Optional: slightly rounded corners for container */
+}
+
+.main-layout-footer {
+  text-align: center;
+  padding: 1.5rem 2rem;
+  background: #e2e8f0; /* Lighter grey for footer */
+  color: #475569; /* Slightly muted text for footer */
+  font-size: 0.9rem;
+  border-top: 1px solid #cbd5e1;
+}
+
+/* Responsive considerations (optional, but good practice) */
+@media (max-width: 768px) {
+  .desktop-nav { /* Hide desktop nav items, show icon */
+    display: none; 
+  }
+  /* The .main-layout-nav.mobile-nav-open in JS controls display of items for mobile */
+  /* Or use .mobile-only-nav as implemented */
+
+
+  .mobile-menu-icon {
+    display: block; /* Show hamburger icon */
+  }
+
+  /* Adjust header for mobile if logo and icon are to be on same line */
+  .main-layout-header {
+    /* padding: 0.8rem 1rem; Keep previous padding or adjust */
+    /* flex-direction: row; Ensure logo and icon are on same line */
+    /* justify-content: space-between; */
+  }
+  .main-layout-logo a {
+    margin-bottom: 0; /* Remove bottom margin if header is not column */
+  }
+  
+  /* If .main-layout-nav (desktop-nav) was used for mobile, these would apply: */
+  /*
+  .main-layout-nav { 
+    display: none; // Initially hidden on mobile
+    flex-direction: column;
+    width: 100%;
+    position: absolute;
+    top: 100%; // Position below header. Header needs to be relative or static for this.
+               // If header is sticky, this needs to be calculated or header height fixed.
+    left: 0;
+    background-color: #f1f5f9; // Or another suitable background
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    z-index: 999; // Below main header's z-index if header is sticky
+  }
+  .main-layout-nav.mobile-nav-open {
+    display: flex; // Show when mobile menu is open
+  }
+  .main-layout-nav-item, .main-layout-logout-button, .user-dropdown-container {
+    width: 100%;
+    text-align: left; // Or center
+    padding: 0.8rem 1rem; // Adjust padding for mobile list items
+    border-top: 1px solid #e2e8f0; // Separator lines
+  }
+  .user-dropdown-toggle {
+    justify-content: space-between; // Make toggle take full width
+  }
+  .user-dropdown-menu { // Adjust dropdown for mobile
+    position: static; // No longer absolute, part of the flow
+    border: none;
+    box-shadow: none;
+    width: 100%;
+  }
+  .user-dropdown-item {
+    padding-left: 2rem; // Indent dropdown items
+  }
+  */
+
+  .main-layout-container {
+    margin: 10px auto;
+    padding: 15px;
+  }
+}

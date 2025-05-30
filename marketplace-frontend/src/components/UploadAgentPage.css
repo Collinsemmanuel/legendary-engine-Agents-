@@ -1,0 +1,325 @@
+/* UploadAgentPage.css */
+
+.upload-page-container {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 25px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+}
+
+.upload-page-container h1 {
+  font-size: 2rem;
+  color: #1e293b;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.upload-page-subtitle {
+  text-align: center;
+  color: #475569;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+}
+
+.upload-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.form-section {
+  background-color: #fdfdff; /* Slightly off-white for sections */
+  padding: 1.5rem 2rem;
+  border-radius: 6px;
+  border: 1px solid #eef2f7; /* Lighter border */
+  box-shadow: 0 3px 6px rgba(0,0,0,0.04);
+}
+
+.form-section h2 {
+  font-size: 1.4rem;
+  color: #334155;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.form-row {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+.form-row .form-group {
+  flex: 1;
+  margin-bottom: 0; /* Remove bottom margin if in a row */
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 500;
+  color: #475569;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.375rem;
+  font-size: 0.95rem;
+  color: #334155;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.form-group input[type="text"]:focus,
+.form-group input[type="number"]:focus,
+.form-group textarea:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+  outline: none;
+}
+
+/* File Upload Zone Styles */
+.wf-upload-zone {
+  border: 2px dashed #a5b4fc; /* Mockup: .wf-upload-zone border */
+  border-radius: 0.5rem; /* Mockup: .wf-upload-zone border-radius */
+  padding: 2rem;
+  text-align: center;
+  background-color: #f8fafc; /* Mockup: .wf-upload-zone background */
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.wf-upload-zone:hover {
+  background-color: #f0f4ff;
+  border-color: #818cf8;
+}
+.wf-upload-zone.file-selected { /* When a file is selected but no error */
+  border-color: #4ade80; /* Green border */
+  background-color: #f0fdf4;
+}
+.wf-upload-zone.has-error { /* When there's a file-specific error */
+    border-color: #f87171; /* Red border */
+    background-color: #fef2f2;
+}
+
+
+.upload-icon {
+  font-size: 3rem; /* Mockup: .wf-upload-icon */
+  color: #60a5fa; /* Mockup: .wf-upload-icon */
+  margin-bottom: 0.5rem;
+}
+.wf-upload-zone p {
+  color: #374151; /* Mockup: .wf-upload-text */
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+}
+.browse-text {
+  color: #6b7280; /* Mockup: .wf-upload-text-secondary */
+  font-size: 0.9rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+.choose-files-button {
+  background: #60a5fa; /* Mockup: .wf-button (blue) */
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.choose-files-button:hover {
+  background: #3b82f6;
+}
+
+.selected-file-info-in-zone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.selected-file-info-in-zone .file-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: #4ade80; /* Green check for success */
+}
+.selected-file-info-in-zone.error-state .file-icon {
+    color: #f87171; /* Red for error icon */
+}
+.selected-file-info-in-zone p {
+    font-size: 1rem;
+    color: #334155;
+    font-weight: 500;
+}
+.selected-file-info-in-zone span {
+    font-size: 0.85rem;
+    color: #6b7280;
+}
+
+
+.upload-guidelines {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin-top: 0.75rem;
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* Uploaded Files List Styles */
+.uploaded-files-list {
+  margin-top: 1.5rem;
+}
+.file-item {
+  display: flex;
+  align-items: center;
+  background: #f9fafb; /* Mockup: .wf-file-item */
+  border: 1px solid #e5e7eb; /* Mockup: .wf-file-item */
+  border-radius: 0.375rem; /* Mockup: .wf-file-item */
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.75rem;
+}
+.file-item-error {
+  background-color: #fee2e2; /* Mockup: .wf-file-item.error */
+  border-color: #fca5a5;
+}
+
+.file-item .file-icon {
+  font-size: 1.5rem; /* Mockup: .wf-file-icon */
+  margin-right: 0.75rem;
+  color: #60a5fa; /* Default icon color */
+}
+.file-item-error .file-icon { color: #ef4444; }
+
+.file-details {
+  flex-grow: 1;
+}
+.file-name {
+  display: block;
+  font-weight: 500;
+  color: #374151; /* Mockup: .wf-file-name */
+  font-size: 0.9rem;
+}
+.file-size {
+  font-size: 0.8rem; /* Mockup: .wf-file-meta */
+  color: #6b7280; /* Mockup: .wf-file-meta */
+}
+
+.file-status {
+  font-size: 0.8rem;
+  margin-right: 1rem;
+}
+.status-ready { color: #10b981; /* Green, Mockup: .wf-file-status.success */ }
+.status-error { color: #ef4444; /* Red, Mockup: .wf-file-status.error */ }
+
+.file-actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  margin-left: 0.5rem;
+}
+.preview-button { color: #60a5fa; /* Mockup: .wf-file-action */ }
+.remove-button {
+  color: #ef4444; /* Mockup: .wf-file-action */
+  font-size: 1.5rem; /* Make X bigger */
+  line-height: 1;
+}
+.preview-button:hover, .remove-button:hover { opacity: 0.7; }
+
+
+/* Form Actions */
+.form-actions {
+  margin-top: 1rem; /* Space above the submit button */
+  text-align: right;
+}
+.primary-upload-button.wf-button {
+  background: #10b981; /* Green for submit, as in mockup */
+  color: white;
+  padding: 0.8rem 2rem;
+  font-size: 1.05rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 0.375rem;
+}
+.primary-upload-button.wf-button:hover:not(:disabled) {
+  background: #059669;
+}
+.primary-upload-button.wf-button:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* General Error/Success Messages */
+.loading-indicator {
+  text-align: center;
+  padding: 1rem;
+  font-size: 1.1rem;
+  color: #3b82f6;
+}
+.success-message {
+  background-color: #dcfce7;
+  color: #166534;
+  border: 1px solid #86efac;
+  padding: 1rem;
+  border-radius: 0.375rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+.error-message.global-error { /* For general form errors */
+  background-color: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fca5a5;
+  padding: 1rem;
+  border-radius: 0.375rem;
+  margin-bottom: 1.5rem;
+  white-space: pre-wrap; /* To respect newlines in error messages */
+}
+.error-message.file-specific-error { /* For file errors shown below the list */
+    font-size: 0.85rem;
+    color: #ef4444;
+    margin-top: 0.5rem;
+    text-align: center;
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .upload-page-container {
+    margin: 20px;
+    padding: 20px;
+  }
+  .upload-page-container h1 { font-size: 1.8rem; }
+  .upload-page-subtitle { font-size: 0.95rem; }
+
+  .form-row {
+    flex-direction: column;
+    gap: 1.2rem; /* Keep gap for stacked elements */
+    margin-bottom: 0; /* Remove bottom margin as groups have it */
+  }
+  .form-row .form-group {
+    margin-bottom: 1.2rem; /* Add back margin for stacked groups */
+  }
+
+  .form-section { padding: 1.5rem; }
+  .form-section h2 { font-size: 1.25rem; }
+
+  .wf-upload-zone { padding: 1.5rem; }
+  .wf-upload-zone p { font-size: 1rem; }
+  .browse-text { font-size: 0.85rem; }
+
+  .file-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+  .file-details { margin-bottom: 0.25rem; }
+  .file-status { margin-right: 0; margin-bottom: 0.25rem; }
+  .file-actions { align-self: flex-end; }
+
+  .form-actions { text-align: center; }
+  .primary-upload-button.wf-button { width: 100%; }
+}

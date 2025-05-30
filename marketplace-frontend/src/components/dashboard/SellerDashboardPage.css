@@ -1,0 +1,222 @@
+/* SellerDashboardPage.css */
+
+/* Reusing general dashboard styles from BuyerDashboardPage.css if applicable, 
+   or define them here if they are distinct or not in a shared file.
+   For this example, we'll assume some styles might be shared (like .dashboard-page-container, .dashboard-header)
+   but will define specifics for seller dashboard elements.
+   If BuyerDashboardPage.css is imported globally or via App.css, some styles might cascade.
+   For true modularity, each component should have its own distinct or explicitly imported shared styles.
+*/
+
+.seller-dashboard .dashboard-header .wf-button.primary {
+  background-color: #10b981; /* Green for "Upload New Agent" */
+}
+.seller-dashboard .dashboard-header .wf-button.primary:hover {
+  background-color: #059669;
+}
+
+/* Summary Statistic Cards - Assuming .dashboard-stats and .stat-card are styled similarly to BuyerDashboard */
+/* No new styles needed if BuyerDashboardPage.css styles are applied or shared */
+
+/* Listed Agents Section */
+.listed-agents-section {
+  background: white;
+  padding: 1.5rem 2rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.03);
+  margin-top: 2.5rem; /* Space from stats */
+}
+
+/* Reusing .table-header for consistency in section titles and actions layout */
+.listed-agents-section .table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+.listed-agents-section .table-header h2 {
+  font-size: 1.4rem;
+  color: #334155;
+}
+.listed-agents-section .table-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+.listed-agents-section .filter-select.wf-select { /* Assuming .wf-select style */
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem;
+  border: 1px solid #cbd5e1;
+  font-size: 0.85rem;
+  min-width: 180px; /* Wider for status filter */
+}
+.listed-agents-section .search-input.wf-input { /* Assuming .wf-input style */
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    border: 1px solid #cbd5e1;
+    font-size: 0.85rem;
+}
+
+
+/* Grid for Listed Agents (using AgentCard) */
+.listed-agents-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Same as AgentListPage */
+  gap: 1.5rem;
+}
+
+.seller-agent-card-wrapper {
+  /* This wrapper can hold the AgentCard and seller-specific actions below it */
+  background-color: #f9fafb; /* Slightly different background for the wrapper */
+  border-radius: 0.5rem; /* Match AgentCard's radius */
+  padding: 0.75rem;
+  border: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem; /* Space between card and action buttons */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+}
+
+.seller-agent-card-wrapper .agent-card {
+  box-shadow: none; /* Remove AgentCard's default shadow if wrapped */
+  border: none; /* Remove AgentCard's default border if wrapped */
+  width: 100%; /* Make AgentCard fill wrapper */
+}
+
+.seller-agent-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0.5rem;
+  border-top: 1px solid #e5e7eb; /* Separator line */
+}
+
+.seller-agent-actions .status-badge {
+  /* Assuming .status-badge, .status-active, .status-needs-review, .status-disabled are defined */
+  /* (Can copy from BuyerDashboardPage.css or a shared file) */
+  padding: 0.3rem 0.6rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+.status-active { background: #dcfce7; color: #166534; }
+.status-needs-review { background: #fef9c3; color: #854d0e; } /* Yellowish */
+.status-disabled { background: #fee2e2; color: #991b1b; } /* Reddish */
+
+
+.seller-agent-actions .action-buttons .wf-button-link {
+  /* Assuming .wf-button-link is styled (e.g., from BuyerDashboardPage.css) */
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  margin-left: 0.5rem; /* Spacing between buttons */
+  text-decoration: none;
+  font-size: 0.85rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s ease;
+}
+.seller-agent-actions .action-buttons .edit-button { color: #3b82f6; }
+.seller-agent-actions .action-buttons .edit-button:hover { background-color: #eff6ff; }
+.seller-agent-actions .action-buttons .performance-button { color: #059669; }
+.seller-agent-actions .action-buttons .performance-button:hover { background-color: #dcfce7; }
+
+.no-agents-message {
+  grid-column: 1 / -1; /* Span full width if grid is empty */
+  text-align: center;
+  padding: 2rem;
+  color: #6b7280;
+  font-size: 1rem;
+}
+
+
+/* Responsive adjustments for SellerDashboardPage */
+@media (max-width: 768px) { /* Tablet */
+  .listed-agents-section .table-header { /* Reusing .table-header class */
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .listed-agents-section .table-actions { /* Reusing .table-actions class */
+    width: 100%;
+    flex-direction: column; /* Stack filter and search */
+    gap: 0.5rem;
+  }
+  .listed-agents-section .filter-select.wf-select,
+  .listed-agents-section .search-input.wf-input {
+    width: 100%;
+  }
+}
+
+/* General dashboard styles (can be shared with BuyerDashboardPage.css) */
+.dashboard-page-container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.dashboard-header h1 {
+  font-size: 1.8rem;
+  color: #1e293b;
+}
+
+.dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Adjusted minmax for 4 cards */
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.stat-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.stat-card h4 {
+  font-size: 1rem;
+  color: #475569;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.stat-card p {
+  font-size: 1.8rem; /* Slightly smaller for 4 cards to fit better */
+  color: #1e293b;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) { /* Tablet */
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  .dashboard-stats {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Adjust for smaller screens */
+  }
+   .stat-card p {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 576px) { /* Mobile */
+    .dashboard-stats {
+        grid-template-columns: 1fr; /* Stack stat cards fully on mobile */
+    }
+     .stat-card p {
+        font-size: 1.75rem;
+    }
+}

@@ -1,0 +1,232 @@
+/* CheckoutPage.css */
+
+.checkout-page-container {
+  max-width: 1100px; /* Slightly adjusted max-width */
+  margin: 30px auto;
+  padding: 20px;
+}
+
+.checkout-page-container > h1 {
+  font-size: 2rem;
+  color: #1e293b;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.checkout-form-layout {
+  display: flex;
+  flex-direction: row;
+  gap: 2.5rem; /* Gap between main content and sidebar */
+}
+
+.payment-billing-details {
+  flex: 2; /* Takes more space */
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem; /* Space between sections within this column */
+}
+
+.order-summary-sidebar {
+  flex: 1;
+  background: #f8fafc; /* Mockup: .order-summary background */
+  padding: 1.5rem 2rem; /* Mockup: .order-summary padding */
+  border-radius: 0.5rem; /* Mockup: .order-summary border-radius */
+  border: 1px solid #e2e8f0; /* Mockup: .order-summary border */
+  height: fit-content; /* Adjust to content height */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.04);
+}
+
+.form-section { /* Common styling for sections like payment, billing */
+  background-color: #fff;
+  padding: 1.5rem 2rem;
+  border-radius: 6px;
+  border: 1px solid #eef2f7;
+}
+
+.form-section h2 {
+  font-size: 1.3rem;
+  color: #334155;
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+/* Payment Method Selector */
+.payment-method-selector {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsive columns */
+  gap: 1rem;
+}
+
+.payment-method-selector .method {
+  border: 2px solid #e2e8f0; /* Mockup: .method border */
+  padding: 1rem 1.2rem;
+  border-radius: 0.375rem; /* Mockup: .method border-radius (adjusted) */
+  cursor: pointer;
+  text-align: center;
+  font-weight: 500;
+  color: #334155;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background-color: #fff;
+}
+.payment-method-selector .method:hover {
+  border-color: #a5b4fc;
+}
+.payment-method-selector .method.active {
+  border-color: #3b82f6; /* Mockup: .method.active border-color */
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3); /* Mockup: .method.active box-shadow (adjusted) */
+  background-color: #eff6ff; /* Light blue background for active */
+  color: #2563eb;
+}
+.payment-method-selector .method img {
+  max-height: 24px;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
+
+/* Form elements styling (reusing .wf-form-group, .wf-label, .wf-input from other CSS or define here if specific) */
+.wf-form-group { /* Ensure this is defined if not globally available */
+  margin-bottom: 1rem;
+}
+.wf-label { /* Ensure this is defined */
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #475569;
+  font-size: 0.9rem;
+}
+.wf-input { /* Ensure this is defined */
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.375rem;
+  font-size: 0.95rem;
+  color: #334155;
+}
+.wf-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+  outline: none;
+}
+
+.form-row { /* For side-by-side inputs */
+  display: flex;
+  gap: 1rem;
+}
+.form-row .wf-form-group {
+  flex: 1;
+}
+
+
+/* Order Summary Sidebar */
+.order-summary-sidebar h3 {
+  font-size: 1.3rem;
+  color: #334155;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #dde4ed;
+}
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+  color: #475569;
+}
+.summary-item span:last-child {
+  font-weight: 500;
+  color: #334155;
+}
+.order-summary-sidebar hr {
+  border: none;
+  border-top: 1px solid #e2e8f0;
+  margin: 1rem 0;
+}
+.total-amount {
+  font-size: 1.1rem !important; /* Override .summary-item font-size */
+  font-weight: bold;
+  color: #1e293b !important; /* Override .summary-item color */
+}
+.total-amount span:last-child {
+  font-size: 1.2rem;
+  color: #1e293b !important;
+}
+
+.complete-purchase-button.wf-button { /* Ensure .wf-button is defined or style here */
+  background: #10b981; /* Green button */
+  color: white;
+  width: 100%;
+  padding: 0.85rem;
+  font-size: 1.05rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background-color 0.2s;
+}
+.complete-purchase-button.wf-button:hover {
+  background: #059669;
+}
+
+.secure-checkout-text {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #6b7280; /* Grey text */
+  margin-top: 1rem;
+}
+.secure-checkout-text svg, .secure-checkout-text .lock-icon { /* For potential SVG icon */
+  vertical-align: middle;
+  margin-right: 0.3rem;
+  color: #10b981; /* Green lock */
+}
+
+
+/* Responsive Design for Checkout Page */
+@media (max-width: 992px) { /* Tablet */
+  .checkout-form-layout {
+    flex-direction: column-reverse; /* Stack order summary on top for mobile if preferred, or bottom */
+  }
+  .payment-billing-details, .order-summary-sidebar {
+    flex: none; /* Reset flex property */
+    width: 100%;
+  }
+  .order-summary-sidebar {
+    margin-bottom: 2rem; /* Add space if it's on top or before next section */
+  }
+}
+
+@media (max-width: 576px) { /* Mobile */
+  .checkout-page-container {
+    padding: 15px;
+    margin: 15px auto;
+  }
+  .checkout-page-container > h1 {
+    font-size: 1.7rem;
+  }
+  .form-section { padding: 1rem 1.25rem; }
+  .form-section h2 { font-size: 1.15rem; }
+  .order-summary-sidebar { padding: 1rem 1.25rem; }
+  .order-summary-sidebar h3 { font-size: 1.15rem; }
+
+  .form-row {
+    flex-direction: column; /* Stack inputs in a row on mobile */
+    gap: 0; /* Remove gap, rely on .wf-form-group margin */
+  }
+  .form-row .wf-form-group {
+    margin-bottom: 1rem; /* Ensure margin for stacked inputs */
+  }
+
+  .payment-method-selector {
+    grid-template-columns: 1fr; /* Stack payment methods */
+  }
+}
+
+.paypal-button { /* Example specific button style */
+    display: block;
+    margin-top: 1rem;
+    width: auto; /* Or 100% if preferred */
+    padding: 0.75rem 1.5rem;
+    font-weight: bold;
+}
