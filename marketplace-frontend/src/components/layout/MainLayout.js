@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import './MainLayout.css'; 
+import './MainLayout.css';
 
 const MainLayout = ({ children, isAuthenticated, user, handleLogout }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -21,7 +21,7 @@ const MainLayout = ({ children, isAuthenticated, user, handleLogout }) => {
     setIsUserDropdownOpen(false);
     setIsMobileMenuOpen(false); // Also close mobile menu if open
   };
-  
+
   const handleNavigateAndCloseMenus = (path) => {
     navigate(path);
     setIsMobileMenuOpen(false);
@@ -65,7 +65,7 @@ const MainLayout = ({ children, isAuthenticated, user, handleLogout }) => {
           {showSellAgentLink && (
             <Link to="/upload" className="main-layout-nav-item" onClick={() => handleNavigateAndCloseMenus('/upload')}>Sell Agent</Link>
           )}
-          
+
           {isAuthenticated ? (
             <div className="authenticated-nav-items">
               <Link to={dashboardPath} className="main-layout-nav-item" onClick={() => handleNavigateAndCloseMenus(dashboardPath)}>Dashboard</Link>
@@ -73,11 +73,11 @@ const MainLayout = ({ children, isAuthenticated, user, handleLogout }) => {
                 <button onClick={toggleUserDropdown} className="main-layout-nav-item user-dropdown-toggle">
                   {user?.username || 'User'} &#9662; {/* Down arrow */}
                 </button>
-                {isUserDropdownOpen && (
-                  <div className="user-dropdown-menu">
-                    <Link to="/profile" className="user-dropdown-item" onClick={() => handleNavigateAndCloseMenus('/profile')}>My Profile</Link>
-                    <Link to="/settings" className="user-dropdown-item" onClick={() => handleNavigateAndCloseMenus('/settings')}>Settings</Link>
-                    <button onClick={handleLogoutAndCloseDropdown} className="user-dropdown-item logout-button">
+                {/* Apply 'open' class conditionally */}
+                <div className={`user-dropdown-menu ${isUserDropdownOpen ? 'open' : ''}`}>
+                  <Link to="/profile" className="user-dropdown-item" onClick={() => handleNavigateAndCloseMenus('/profile')}>My Profile</Link>
+                  <Link to="/settings" className="user-dropdown-item" onClick={() => handleNavigateAndCloseMenus('/settings')}>Settings</Link>
+                  <button onClick={handleLogoutAndCloseDropdown} className="user-dropdown-item logout-button">
                       Logout
                     </button>
                   </div>

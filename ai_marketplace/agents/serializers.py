@@ -6,10 +6,10 @@ from django.utils.deconstruct import deconstructible
 from django.core.exceptions import ValidationError as DjangoValidationError # For model-level if needed
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import Agent
+from .models import Agent, UserProfile, Transaction, Order # Import Order
 
 
-class UserSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer): # This is used for registration
     password = serializers.CharField(write_only=True)
 
     class Meta:
@@ -38,7 +38,7 @@ class AgentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Agent
         fields = (
-            'id', 'name', 'description', 'version', 'price', 
+            'id', 'name', 'description', 'version', 'price',
             'agent_file', 'uploaded_by_username', # Use this for displaying uploader
             'created_at', 'updated_at',
             'uploaded_by' # Keep for writing, will be made effectively write-only
@@ -57,7 +57,7 @@ class AgentSerializer(serializers.ModelSerializer):
             # If agent_file is not provided in a PATCH, it won't be validated here.
             # If it is provided, it must pass validation.
         }
-    
+
     def validate_agent_file(self, value):
         """
         Validate the uploaded agent file for extension and size.
@@ -92,7 +92,7 @@ class AgentSerializer(serializers.ModelSerializer):
                     for required_file in self.REQUIRED_FILES_IN_ZIP:
                         if required_file not in original_case_zip_content_list:
                             missing_files.append(required_file)
-                    
+
                     # Check for README (case-insensitive)
                     for readme_name in self.README_FILENAMES:
                         if readme_name.lower() in zip_content_list:
@@ -111,7 +111,7 @@ class AgentSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError(
                     f"Missing required files in ZIP: {', '.join(missing_files)}."
                 )
-        
+
         return value
 
     def create(self, validated_data):
@@ -130,7 +130,7 @@ class AgentSerializer(serializers.ModelSerializer):
         # Remove 'uploaded_by' (ID) from the output if 'uploaded_by_username' (username) is present.
         if 'uploaded_by_username' in representation:
             representation.pop('uploaded_by', None)
-        
+
         # Ensure agent_file URL is correctly resolved if it's not null
         # and if context has request (it should for GET requests)
         if instance.agent_file and hasattr(instance.agent_file, 'url') and 'request' in self.context:
@@ -138,6 +138,91 @@ class AgentSerializer(serializers.ModelSerializer):
         elif instance.agent_file and hasattr(instance.agent_file, 'url'): # Fallback if no request in context (e.g. some management commands)
             representation['agent_file'] = instance.agent_file.url
         elif not instance.agent_file:
-            representation['agent_file'] = None # Or some placeholder if preferred
-            
+            representation['agent_file'] = None
+
         return representation
+
+# Serializer for UserProfile model (for updating profile)
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserProfile
+        fields = ['address_line1', 'city', 'zip_code', 'profile_picture_url']
+
+# Serializer for User model to include profile details (for reading user info)
+class UserDetailsSerializer(serializers.ModelSerializer):
+    profile = UserProfileSerializer(read_only=True)
+
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email', 'profile', 'first_name', 'last_name']
+        # Including first_name and last_name from the User model itself
+
+class PurchaseHistorySerializer(serializers.ModelSerializer):
+    agent = AgentSerializer(read_only=True)
+    status = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Transaction
+        fields = ['id', 'agent', 'timestamp', 'amount', 'status']
+
+    def get_status(self, obj):
+        # Placeholder: In a real app, status might depend on subscription validity, etc.
+        return "Active"
+
+class SellerAgentSerializer(AgentSerializer): # Inherit from AgentSerializer
+    sales_count = serializers.SerializerMethodField()
+    status = serializers.SerializerMethodField() # Placeholder for agent status (e.g., Active, Under Review)
+
+    class Meta(AgentSerializer.Meta): # Inherit Meta from parent
+        # Add new fields to the list from parent
+        fields = AgentSerializer.Meta.fields + ('sales_count', 'status')
+        # Alternatively, define all fields explicitly if more control is needed:
+        # fields = [
+        #     'id', 'name', 'description', 'version', 'price', 'agent_file',
+        #     'uploaded_by_username', 'created_at', 'updated_at',
+        #     'sales_count', 'status'
+        # ]
+        # read_only_fields = AgentSerializer.Meta.read_only_fields + ('sales_count', 'status')
+
+
+    def get_sales_count(self, obj):
+        # obj is an Agent instance
+        return Transaction.objects.filter(agent=obj).count()
+
+    def get_status(self, obj):
+        # Placeholder: In a real app, this would come from a field on the Agent model
+        # e.g., obj.moderation_status or obj.is_active
+        # For now, cycling through a few statuses for mock data variety if needed, or just "Active"
+        # For real data, this should reflect the actual agent status.
+        # Let's assume a default "Active" unless a status field is added to Agent model.
+        if hasattr(obj, 'current_status_for_seller_dashboard'): # Example if we had a way to set this
+            return obj.current_status_for_seller_dashboard
+        return "Active" # Default placeholder
+
+
+# Serializer for Order model (for reading order data)
+class OrderSerializer(serializers.ModelSerializer):
+    agent = AgentSerializer(read_only=True)
+    buyer_username = serializers.CharField(source='buyer.username', read_only=True)
+
+    class Meta:
+        model = Order
+        fields = ['order_id', 'buyer_username', 'agent', 'price_at_purchase', 'status', 'created_at']
+
+# Serializer for creating an order (input validation)
+class OrderCreateSerializer(serializers.Serializer):
+    agent_id = serializers.IntegerField()
+
+    def validate_agent_id(self, value):
+        try:
+            agent = Agent.objects.get(pk=value)
+            if not agent.price: # Or however you determine if an agent is purchasable (e.g. an is_active flag)
+                raise serializers.ValidationError("This agent is not currently available for purchase or has no price.")
+            # Access context to get the request object, then the user
+            # This check is better placed in the view or a more complex validate method if needed
+            # user = self.context['request'].user
+            # if agent.uploaded_by == user:
+            #     raise serializers.ValidationError("You cannot purchase your own agent.")
+        except Agent.DoesNotExist:
+            raise serializers.ValidationError("Agent not found.")
+        return value

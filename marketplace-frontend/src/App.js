@@ -12,7 +12,7 @@ import SellerDashboardPage from './components/dashboard/SellerDashboardPage';
 import ProfilePage from './components/user/ProfilePage'; // Import ProfilePage
 import SettingsPage from './components/user/SettingsPage'; // Import SettingsPage
 import authService from './services/authService';
-import MainLayout from './components/layout/MainLayout'; 
+import MainLayout from './components/layout/MainLayout';
 import './App.css';
 
 function App() {
@@ -65,41 +65,41 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/agents" element={<AgentListPage />} />
-        {/* 
+        {/*
           For protected routes, a more robust solution would involve a wrapper component.
           This inline check is basic. If user is not authenticated, they'll see LoginPage
           instead of AgentDetailPage or UploadAgentPage.
         */}
-        <Route 
-          path="/agents/:id" 
-          element={isAuthenticated ? <AgentDetailPage /> : <LoginPage />} 
+        <Route
+          path="/agents/:id"
+          element={isAuthenticated ? <AgentDetailPage /> : <LoginPage />}
         />
-        <Route 
-          path="/upload" 
-          element={isAuthenticated ? <UploadAgentPage /> : <LoginPage />} 
+        <Route
+          path="/upload"
+          element={isAuthenticated ? <UploadAgentPage /> : <LoginPage />}
         />
         {/* Dashboard route - updated */}
-        <Route 
-          path="/dashboard" 
-          element={isAuthenticated ? <BuyerDashboardPage /> : <LoginPage />} 
+        <Route
+          path="/dashboard"
+          element={isAuthenticated ? <BuyerDashboardPage /> : <LoginPage />}
         />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegistrationPage />} />
-        <Route 
-          path="/checkout" 
-          element={isAuthenticated ? <CheckoutPage /> : <LoginPage />} 
+        <Route
+          path="/checkout"
+          element={isAuthenticated ? <CheckoutPage /> : <LoginPage />}
         />
-        <Route 
-          path="/dashboard/seller" 
-          element={isAuthenticated ? <SellerDashboardPage /> : <LoginPage />} 
+        <Route
+          path="/dashboard/seller"
+          element={isAuthenticated ? <SellerDashboardPage /> : <LoginPage />}
         />
-        <Route 
-          path="/profile" 
-          element={isAuthenticated ? <ProfilePage /> : <LoginPage />} 
+        <Route
+          path="/profile"
+          element={isAuthenticated ? <ProfilePage /> : <LoginPage />}
         />
-        <Route 
-          path="/settings" 
-          element={isAuthenticated ? <SettingsPage /> : <LoginPage />} 
+        <Route
+          path="/settings"
+          element={isAuthenticated ? <SettingsPage /> : <LoginPage />}
         />
       </Routes>
     </MainLayout>

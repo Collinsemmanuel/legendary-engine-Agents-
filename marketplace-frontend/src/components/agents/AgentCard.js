@@ -39,7 +39,7 @@ const AgentCard = ({ agent }) => {
     return stars;
   };
   // Use a mock rating if not provided
-  const displayRating = agent?.rating || 4.5; 
+  const displayRating = agent?.rating || 4.5;
   const displayReviewCount = agent?.reviewCount || Math.floor(Math.random() * 200) + 10;
 
 

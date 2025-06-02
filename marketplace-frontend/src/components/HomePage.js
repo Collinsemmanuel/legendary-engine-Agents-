@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AgentCard from './agents/AgentCard'; // Import AgentCard
-import './HomePage.css'; 
+import './HomePage.css';
 
 // Mockup classes to reference for styling:
 // .wf-hero: background: #e0f2fe (light blue); padding: 4rem 2rem; text-align: center;
@@ -14,7 +14,7 @@ import './HomePage.css';
 const HomePage = () => {
   const navigate = useNavigate();
   // In a real app, get isAuthenticated from context or props
-  const isAuthenticated = !!localStorage.getItem('token'); 
+  const isAuthenticated = !!localStorage.getItem('token');
 
   const handleStartSelling = () => {
     if (isAuthenticated) {
@@ -31,14 +31,14 @@ const HomePage = () => {
         <div className="hero-content">
           <h1>Discover AI Agents for Every Need</h1>
           <p>
-            Browse, buy, and deploy cutting-edge AI agents from a vibrant community of developers. 
+            Browse, buy, and deploy cutting-edge AI agents from a vibrant community of developers.
             Or, showcase and monetize your own creations.
           </p>
           <div className="hero-search-container">
-            <input 
-              type="text" 
-              className="hero-search-bar" 
-              placeholder="Search for agents (e.g., image generation, text analysis...)" 
+            <input
+              type="text"
+              className="hero-search-bar"
+              placeholder="Search for agents (e.g., image generation, text analysis...)"
             />
             {/* Search button can be added if desired, or search on type */}
           </div>
@@ -58,9 +58,9 @@ const HomePage = () => {
         <h2>Featured AI Agents</h2>
         <div className="featured-agents-grid">
           {/* Static AgentCard components with mock data */}
-          <AgentCard agent={{ 
-            id: '1', 
-            name: "Image Enhancer Pro", 
+          <AgentCard agent={{
+            id: '1',
+            name: "Image Enhancer Pro",
             description: "Upscale and enhance your images with state-of-the-art AI. Perfect for photographers and designers.",
             price: "29.99",
             rating: 4.8, // Example rating
@@ -68,27 +68,27 @@ const HomePage = () => {
             uploaded_by_username: "PixelPerfect Co."
             // imageUrl: "path/to/image1.jpg" // Optional image
           }} />
-          <AgentCard agent={{ 
-            id: '2', 
-            name: "Text Summarizer GPT", 
+          <AgentCard agent={{
+            id: '2',
+            name: "Text Summarizer GPT",
             description: "Condense long articles and documents into concise summaries without losing key information.",
             price: "19.00",
             rating: 4.5,
             reviewCount: 95,
             uploaded_by_username: "ReaderDigest AI"
           }} />
-          <AgentCard agent={{ 
-            id: '3', 
-            name: "Code Assistant Bot", 
+          <AgentCard agent={{
+            id: '3',
+            name: "Code Assistant Bot",
             description: "Your AI pair programmer. Get suggestions, find bugs, and generate boilerplate code.",
             price: "79.50",
             rating: 4.9,
             reviewCount: 210,
             uploaded_by_username: "DevTools Inc."
           }} />
-           <AgentCard agent={{ 
-            id: '4', 
-            name: "Audio Transcription Service", 
+           <AgentCard agent={{
+            id: '4',
+            name: "Audio Transcription Service",
             description: "Highly accurate speech-to-text conversion for various audio formats. Supports multiple languages.",
             price: "5.00", // per hour or similar, just for display
             rating: 4.2,

@@ -104,11 +104,7 @@
   font-size: 0.95rem;
   color: #334155;
 }
-.wf-input:focus {
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
-  outline: none;
-}
+/* :focus style is now handled by index.css */
 
 .form-row { /* For side-by-side inputs */
   display: flex;
@@ -157,7 +153,7 @@
   background: #10b981; /* Green button */
   color: white;
   width: 100%;
-  padding: 0.85rem;
+  padding: 0.85rem 1.75rem; /* Standardized padding for a large primary button */
   font-size: 1.05rem;
   font-weight: 500;
   border: none;

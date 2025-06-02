@@ -134,7 +134,7 @@
 .agents-grid {
   display: grid;
   /* Using minmax for responsive columns, auto-fill will create as many columns as fit */
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.5rem; /* Space between AgentCards */
 }
 
@@ -193,7 +193,7 @@
     margin-bottom: 1.5rem;
     height: auto; /* Adjust height */
   }
-  
+
   .list-header {
     flex-direction: column;
     gap: 0.75rem;
@@ -216,7 +216,7 @@
   }
   .agents-grid {
     /* Switch to single column for very small screens if minmax doesn't already handle it well */
-    grid-template-columns: 1fr; 
+    grid-template-columns: 1fr;
   }
   .pagination-controls {
     flex-direction: column;

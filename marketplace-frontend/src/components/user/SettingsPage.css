@@ -1,0 +1,133 @@
+/* SettingsPage.css */
+
+/* Using .form-container as a common class for pages with forms (can be global or shared) */
+.settings-page-container.form-container {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 25px 30px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+}
+
+.settings-page-container h1 {
+  font-size: 2rem;
+  color: #1e293b;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.settings-page-container > p { /* Subtitle for the page */
+  text-align: center;
+  color: #475569;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+}
+
+.settings-page-container .form-section {
+  background-color: #fdfdff;
+  padding: 1.5rem 2rem;
+  border-radius: 6px;
+  border: 1px solid #eef2f7;
+  margin-bottom: 1.8rem;
+}
+
+.settings-page-container .form-section h2 {
+  font-size: 1.3rem;
+  color: #334155;
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+/* Reusing .wf-form-group, .wf-label, .wf-input from shared/global styles or define here */
+.wf-form-group {
+  margin-bottom: 1.2rem;
+}
+
+.wf-label { /* Already defined in ProfilePage.css, ensure consistency or make global */
+  display: block;
+  font-weight: 500;
+  color: #475569;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.wf-input { /* Already defined in ProfilePage.css */
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.375rem;
+  font-size: 0.95rem;
+  color: #334155;
+}
+/* :focus style is now handled by index.css */
+
+
+/* Checkbox group specific styling */
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; /* Space between checkbox and label */
+}
+.checkbox-group input[type="checkbox"] {
+  width: auto; /* Override .wf-input width if it targets all inputs */
+  height: 1.1em; /* Adjust size */
+  width: 1.1em;
+  accent-color: #3b82f6; /* Modern way to color checkboxes */
+  cursor: pointer;
+}
+.checkbox-group label { /* Label next to checkbox */
+  margin-bottom: 0; /* Reset margin from .wf-label */
+  font-weight: normal; /* Normal weight for checkbox labels */
+  color: #334155;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+
+.form-actions { /* Already defined in ProfilePage.css */
+  margin-top: 1.5rem;
+  text-align: right; /* Default for single button */
+}
+/* If multiple buttons or different alignment needed, adjust here */
+.settings-page-container .form-actions button.wf-button.primary {
+  background-color: #3b82f6;
+  color: white;
+  padding: 0.75rem 1.5rem; /* Standardized padding */
+  font-size: 1rem; /* Standardized font size */
+}
+.settings-page-container .form-actions button.wf-button.primary:hover:not(:disabled) {
+  background-color: #2563eb;
+}
+.settings-page-container .form-actions button.wf-button.primary:disabled {
+  background-color: #9ca3af;
+}
+
+
+/* Small error/success messages specific to sections */
+.small-error, .small-success {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    border-radius: 0.25rem;
+    text-align: left; /* More specific messages usually left aligned */
+}
+.error-message.small-error { /* Reusing .error-message from ProfilePage.css */
+    background-color: #fee2e2; color: #991b1b; border: 1px solid #fca5a5;
+}
+.success-message.small-success { /* Reusing .success-message */
+    background-color: #dcfce7; color: #166534; border: 1px solid #86efac;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .settings-page-container.form-container {
+    padding: 20px 20px;
+  }
+  .settings-page-container h1 { font-size: 1.7rem; }
+  .settings-page-container .form-section { padding: 1rem 1.25rem; }
+  .settings-page-container .form-section h2 { font-size: 1.15rem; }
+  .checkbox-group label { font-size: 0.9rem; }
+}

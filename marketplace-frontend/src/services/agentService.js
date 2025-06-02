@@ -16,7 +16,7 @@ const uploadAgent = (formData) => {
 
 const getAgents = (page = 1) => {
   // The backend uses PageNumberPagination, so it expects a `page` query parameter.
-  return axios.get(API_URL, { params: { page } }); 
+  return axios.get(API_URL, { params: { page } });
   // No specific headers needed for public GET usually, unless backend requires auth for listing.
 };
 

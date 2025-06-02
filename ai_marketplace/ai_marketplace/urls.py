@@ -22,7 +22,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     # All agent-related views (auth, upload, list, detail) will be under api/
-    path('api/', include('agents.urls')), 
+    path('api/', include('agents.urls')),
 ]
 
 if settings.DEBUG:

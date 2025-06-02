@@ -205,6 +205,14 @@
   text-align: center;
 }
 
+.wf-table.purchases-table tbody tr:hover {
+  background-color: #f9fafb; /* Light hover effect for table rows */
+}
+.wf-table.purchases-table tbody tr .agent-name-link { /* Ensure link color doesn't get overridden too much by row hover */
+    /* Keep existing link styles, or adjust if needed on row hover */
+}
+
+
 /* Responsive Design for Dashboard */
 @media (max-width: 768px) { /* Tablet */
   .dashboard-header {

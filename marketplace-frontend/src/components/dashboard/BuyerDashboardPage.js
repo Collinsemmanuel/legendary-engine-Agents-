@@ -1,52 +1,75 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react'; // Import useState, useEffect
 import { Link } from 'react-router-dom';
-import './BuyerDashboardPage.css'; // To be created
-
-// Mockup classes for styling reference:
-// .dashboard-header: display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;
-// .dashboard-stats .stat-card: background: white; padding: 1.5rem; border-radius: 0.5rem; box-shadow: ...;
-// .purchases-section .table-header: display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;
-// .wf-table, .wf-th, .wf-td, .wf-button, .wf-select
-// .status-active: background: #dcfce7; color: #166534; padding: 0.25rem 0.5rem; border-radius: 0.25rem;
+import userService from '../../services/userService'; // Import userService
+import './BuyerDashboardPage.css';
 
 const BuyerDashboardPage = () => {
-  // Mock data for summary statistics
-  const summaryStats = {
-    purchasedAgents: 12,
-    totalSpent: 499.50,
-    activeDeployments: 3,
+  // State for summary statistics
+  const [summaryData, setSummaryData] = useState({
+    total_purchased_agents: 0,
+    total_spent: 0,
+    active_deployments: 0,
+  });
+  const [isLoadingSummary, setIsLoadingSummary] = useState(true);
+  const [errorSummary, setErrorSummary] = useState(null);
+
+  // State for "My Purchases" table
+  const [purchases, setPurchases] = useState([]);
+  const [isLoadingPurchases, setIsLoadingPurchases] = useState(true);
+  const [errorPurchases, setErrorPurchases] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalPurchasesCount, setTotalPurchasesCount] = useState(0);
+
+
+  useEffect(() => {
+    // Fetch summary data
+    setIsLoadingSummary(true);
+    userService.getBuyerDashboardSummary()
+      .then(data => {
+        setSummaryData(data);
+        setErrorSummary(null);
+      })
+      .catch(error => {
+        console.error("Error fetching buyer summary:", error);
+        setErrorSummary(error.message || "Failed to fetch summary data.");
+      })
+      .finally(() => {
+        setIsLoadingSummary(false);
+      });
+  }, []); // Fetch summary once on mount
+
+  useEffect(() => {
+    // Fetch purchases data based on current page
+    setIsLoadingPurchases(true);
+    userService.getBuyerPurchases(currentPage)
+      .then(data => {
+        setPurchases(data.results || []);
+        setTotalPages(Math.ceil((data.count || 0) / 10)); // Assuming 10 items per page from backend pagination
+        setTotalPurchasesCount(data.count || 0);
+        setErrorPurchases(null);
+      })
+      .catch(error => {
+        console.error("Error fetching buyer purchases:", error);
+        setErrorPurchases(error.message || "Failed to fetch purchase history.");
+      })
+      .finally(() => {
+        setIsLoadingPurchases(false);
+      });
+  }, [currentPage]); // Refetch purchases when currentPage changes
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
   };
 
-  // Mock data for "My Purchases" table
-  const purchases = [
-    { 
-      id: 'agent1', 
-      icon: '🤖', 
-      name: 'Data Analyzer Pro', 
-      category: 'Analytics', 
-      purchaseDate: '2023-10-15', 
-      price: 79.99, 
-      status: 'Active' 
-    },
-    { 
-      id: 'agent2', 
-      icon: '🎨', 
-      name: 'Image Upscaler AI', 
-      category: 'Image Processing', 
-      purchaseDate: '2023-09-01', 
-      price: 49.00, 
-      status: 'Inactive' 
-    },
-    { 
-      id: 'agent3', 
-      icon: '✍️', 
-      name: 'Content Writer Bot', 
-      category: 'Text Generation', 
-      purchaseDate: '2023-11-20', 
-      price: 120.00, 
-      status: 'Active' 
-    },
-  ];
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
 
   return (
     <div className="dashboard-page-container">
@@ -59,77 +82,100 @@ const BuyerDashboardPage = () => {
 
       {/* Summary Statistic Cards */}
       <section className="dashboard-stats">
-        <div className="stat-card">
-          <h4>Purchased Agents</h4>
-          <p>{summaryStats.purchasedAgents}</p>
-        </div>
-        <div className="stat-card">
-          <h4>Total Spent</h4>
-          <p>${summaryStats.totalSpent.toFixed(2)}</p>
-        </div>
-        <div className="stat-card">
-          <h4>Active Deployments</h4>
-          <p>{summaryStats.activeDeployments}</p>
-        </div>
+        {isLoadingSummary ? <p className="loading-text">Loading summary...</p> : errorSummary ? <p className="error-text">{errorSummary}</p> : (
+          <>
+            <div className="stat-card">
+              <h4>Purchased Agents</h4>
+              <p>{summaryData.total_purchased_agents}</p>
+            </div>
+            <div className="stat-card">
+              <h4>Total Spent</h4>
+              <p>${summaryData.total_spent?.toFixed(2) || '0.00'}</p>
+            </div>
+            <div className="stat-card">
+              <h4>Active Deployments</h4>
+              <p>{summaryData.active_deployments}</p>
+            </div>
+          </>
+        )}
       </section>
 
       {/* My Purchases Table */}
       <section className="purchases-section">
         <div className="table-header">
-          <h2>My Purchases</h2>
+          <h2>My Purchases ({totalPurchasesCount})</h2>
           <div className="table-actions">
             <select className="wf-select filter-select" defaultValue="">
               <option value="" disabled>Filter by...</option>
               <option value="all">All Purchases</option>
               <option value="this_month">This Month</option>
-              <option value="last_3_months">Last 3 Months</option>
+              {/* Add more options as needed */}
             </select>
             <button className="wf-button secondary export-button">Export CSV</button>
           </div>
         </div>
-        <div className="table-responsive-wrapper">
-          <table className="wf-table purchases-table">
-            <thead>
-              <tr>
-                <th className="wf-th">Agent</th>
-                <th className="wf-th">Purchase Date</th>
-                <th className="wf-th">Price</th>
-                <th className="wf-th">Status</th>
-                <th className="wf-th">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {purchases.map((purchase) => (
-                <tr key={purchase.id} className="wf-tr">
-                  <td className="wf-td agent-cell">
-                    <span className="agent-icon">{purchase.icon}</span>
-                    <div className="agent-info">
-                      <Link to={`/agents/${purchase.id}`} className="agent-name-link">{purchase.name}</Link>
-                      <span className="agent-category">{purchase.category}</span>
-                    </div>
-                  </td>
-                  <td className="wf-td">{purchase.purchaseDate}</td>
-                  <td className="wf-td">${purchase.price.toFixed(2)}</td>
-                  <td className="wf-td">
-                    <span className={`status-badge status-${purchase.status.toLowerCase()}`}>
-                      {purchase.status}
-                    </span>
-                  </td>
-                  <td className="wf-td actions-cell">
-                    <Link to={`/agents/${purchase.id}`} className="wf-button-link view-details-button">View</Link>
-                    <button className="wf-button-link deploy-button">Deploy</button> 
-                    {/* Deploy functionality is UI only for now */}
-                  </td>
-                </tr>
-              ))}
-              {purchases.length === 0 && (
-                <tr className="wf-tr">
-                  <td colSpan="5" className="wf-td text-center">No purchases yet.</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+        {isLoadingPurchases && <p className="loading-text">Loading purchases...</p>}
+        {errorPurchases && <p className="error-message full-width-error">{errorPurchases}</p>}
+
+        {!isLoadingPurchases && !errorPurchases && (
+          <>
+            <div className="table-responsive-wrapper">
+              <table className="wf-table purchases-table">
+                <thead>
+                  <tr>
+                    <th className="wf-th">Agent</th>
+                    <th className="wf-th">Purchase Date</th>
+                    <th className="wf-th">Price Paid</th>
+                    <th className="wf-th">Status</th>
+                    <th className="wf-th">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {purchases.map((purchase) => (
+                    <tr key={purchase.id} className="wf-tr">
+                      <td className="wf-td agent-cell">
+                        <span className="agent-icon">{purchase.agent?.icon || '🤖'}</span> {/* Use agent's icon or default */}
+                        <div className="agent-info">
+                          <Link to={`/agents/${purchase.agent?.id}`} className="agent-name-link">
+                            {purchase.agent?.name || 'N/A'}
+                          </Link>
+                          <span className="agent-category">{purchase.agent?.category || 'Uncategorized'}</span>
+                        </div>
+                      </td>
+                      <td className="wf-td">{new Date(purchase.timestamp).toLocaleDateString()}</td>
+                      <td className="wf-td">${parseFloat(purchase.amount).toFixed(2)}</td>
+                      <td className="wf-td">
+                        <span className={`status-badge status-${purchase.status?.toLowerCase() || 'unknown'}`}>
+                          {purchase.status || 'N/A'}
+                        </span>
+                      </td>
+                      <td className="wf-td actions-cell">
+                        <Link to={`/agents/${purchase.agent?.id}`} className="wf-button-link view-details-button">View</Link>
+                        <button className="wf-button-link deploy-button">Deploy</button>
+                      </td>
+                    </tr>
+                  ))}
+                  {purchases.length === 0 && (
+                    <tr className="wf-tr">
+                      <td colSpan="5" className="wf-td text-center">No purchases yet.</td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+            {totalPages > 1 && (
+              <div className="pagination-controls">
+                <button onClick={handlePreviousPage} disabled={currentPage === 1 || isLoadingPurchases}>
+                  Previous
+                </button>
+                <span> Page {currentPage} of {totalPages} </span>
+                <button onClick={handleNextPage} disabled={currentPage === totalPages || isLoadingPurchases}>
+                  Next
+                </button>
+              </div>
+            )}
+          </>
+        )}
       </section>
     </div>
   );

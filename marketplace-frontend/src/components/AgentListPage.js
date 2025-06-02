@@ -36,7 +36,7 @@ const AgentListPage = () => {
       try {
         // Pass filter/sort states to agentService.getAgents in the future
         // For now, it only takes page
-        const response = await agentService.getAgents(page); 
+        const response = await agentService.getAgents(page);
         setAgents(response.data.results || []);
         setTotalPages(Math.ceil((response.data.count || 0) / 10)); // Assuming 10 per page
         setTotalAgents(response.data.count || 0);
@@ -57,7 +57,7 @@ const AgentListPage = () => {
     // Actual filtering logic will trigger useEffect due to state changes
     console.log("Applying filters:", { category, minPrice, maxPrice, rating });
   };
-  
+
   const handleNextPage = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
@@ -127,7 +127,7 @@ const AgentListPage = () => {
           </div>
 
           {error && <p className="error-message">Error: {error}</p>}
-          
+
           {!isLoading && agents.length === 0 && !error && (
             <p>No agents found matching your criteria.</p>
           )}

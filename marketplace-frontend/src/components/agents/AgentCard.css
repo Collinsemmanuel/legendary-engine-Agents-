@@ -93,7 +93,7 @@
   color: #f59e0b;
 }
 .card-rating .star.half-filled { /* May need a specific half-star character or icon font */
-  color: #f59e0b; 
+  color: #f59e0b;
 }
 .card-rating .star.empty {
   color: #d1d5db; /* Lighter color for empty stars */

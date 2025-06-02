@@ -1,0 +1,32 @@
+# Git
+.git
+.gitignore
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# IDE settings
+.idea/
+.vscode/
+
+# Local settings / sensitive files
+local_settings.py
+*.sqlite3
+db.sqlite3
+*.log
+
+# Media files (if not intended to be part of the image, usually served by a dedicated service or volume)
+# media/
+# staticfiles_collected/ # If you run collectstatic locally and don't want to copy
+
+# Docker specific
+Dockerfile
+.dockerignore

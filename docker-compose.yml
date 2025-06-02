@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:13-alpine
+    container_name: ai_marketplace_db
+    environment:
+      - POSTGRES_DB=${DB_NAME:-marketplace}
+      - POSTGRES_USER=${DB_USER:-admin}
+      - POSTGRES_PASSWORD=${DB_PASS:-admin}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER:-admin} -d $${POSTGRES_DB:-marketplace}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./ai_marketplace
+    container_name: ai_marketplace_backend
+    command: >
+      sh -c "echo 'Waiting for database to be ready...' &&
+             # Simple wait loop for DB, pg_isready might not be available in this base image easily
+             # This is a basic wait, a proper wait-for-it.sh script is more robust
+             until nc -z db 5432; do sleep 1; done;
+             echo 'Database is ready!' &&
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ./ai_marketplace:/app
+      - media_volume:/app/media
+    ports:
+      - "8000:8000"
+    environment:
+      - DJANGO_SETTINGS_MODULE=ai_marketplace.settings
+      # DB_ENGINE is not directly used if DATABASE_URL is set, but good for clarity
+      # - DB_ENGINE=django.db.backends.postgresql
+      - DATABASE_URL=postgresql://${DB_USER:-admin}:${DB_PASS:-admin}@db:5432/${DB_NAME:-marketplace}
+      - DEBUG=${DEBUG:-True}
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY:-a_very_unsafe_default_secret_key_for_dev_only_change_it}
+      - DJANGO_ALLOWED_HOSTS=${DJANGO_ALLOWED_HOSTS:-localhost 127.0.0.1 [::1] backend} # Add 'backend' for Nginx proxy
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build: ./marketplace-frontend
+    container_name: ai_marketplace_frontend
+    ports:
+      - "3000:80"
+    environment:
+      # Nginx in the frontend container will proxy /api to http://backend:8000
+      # These are more for React build time if needed, or if Nginx config used envsubst
+      - REACT_APP_API_BASE_URL=/api
+      - NGINX_API_PROXY_PASS=http://backend:8000 # For potential envsubst in nginx.conf
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+  media_volume:

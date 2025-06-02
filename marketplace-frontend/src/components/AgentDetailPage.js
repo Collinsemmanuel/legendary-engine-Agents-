@@ -73,7 +73,7 @@ function AgentDetailPage() {
       </div>
     );
   }
-  
+
   // Mock data for display where not available from agent object yet
   const displayRating = agent.rating || 4.5; // Assume rating might not be on agent object yet
   const reviewCount = agent.reviewCount || Math.floor(Math.random() * 150) + 20; // Mock review count
@@ -85,7 +85,7 @@ function AgentDetailPage() {
         <div className="agent-image-column">
           <div className="image-placeholder">
             {/* Placeholder for agent image/icon. Mockup uses a gradient and emoji. */}
-            <span>🖼️</span> 
+            <span>🖼️</span>
             {/* <img src={agent.imageUrl || "/default-agent-image.png"} alt={agent.name} /> */}
           </div>
         </div>
@@ -123,19 +123,19 @@ function AgentDetailPage() {
       {/* Tabbed Interface Section */}
       <section className="tabbed-section">
         <nav className="wf-tabs">
-          <button 
+          <button
             className={`wf-tab ${activeTab === 'overview' ? 'active' : ''}`}
             onClick={() => setActiveTab('overview')}
           >
             Overview
           </button>
-          <button 
+          <button
             className={`wf-tab ${activeTab === 'reviews' ? 'active' : ''}`}
             onClick={() => setActiveTab('reviews')}
           >
             Reviews ({reviewCount})
           </button>
-          <button 
+          <button
             className={`wf-tab ${activeTab === 'documentation' ? 'active' : ''}`}
             onClick={() => setActiveTab('documentation')}
           >

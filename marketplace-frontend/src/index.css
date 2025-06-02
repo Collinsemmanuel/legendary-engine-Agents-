@@ -26,17 +26,58 @@ code {
 a {
   color: #3b82f6; /* Example link color, can be customized */
   text-decoration: none;
+  transition: color 0.2s ease-in-out; /* Standard transition for links */
 }
 
 a:hover {
   text-decoration: underline;
+  color: #2563eb; /* Darker shade on hover for links */
 }
 
 button {
   cursor: pointer;
-  font-family: inherit; /* Inherit font from body */
+  font-family: inherit;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out, box-shadow 0.2s ease-in-out; /* Standard for buttons */
 }
 
-input, textarea, select, button {
-  font-family: inherit; /* Ensure form elements inherit global font */
+button:active {
+  transform: scale(0.98); /* Slight scale on click */
+}
+
+
+input, textarea, select {
+  font-family: inherit;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* For focus effects */
+}
+/* General class for transitions if needed on other elements */
+.smooth-transition {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Style for input fields with validation errors */
+.input-error {
+  border-color: #ef4444 !important; /* Red border for error */
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2) !important; /* Red shadow for error */
+}
+
+.error-text-field { /* For text messages near fields */
+  color: #ef4444;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+/* General Loading Message Style */
+.loading-message {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.1rem;
+  color: #3b82f6; /* Blue color for loading text */
+  font-style: italic;
+}
+.loading-indicator { /* More subtle, can be used inline */
+  text-align: center;
+  padding: 1rem;
+  font-size: 1rem;
+  color: #475569;
 }

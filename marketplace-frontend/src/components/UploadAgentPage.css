@@ -76,15 +76,9 @@
   border-radius: 0.375rem;
   font-size: 0.95rem;
   color: #334155;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease; /* This is fine, matches global intent */
 }
-.form-group input[type="text"]:focus,
-.form-group input[type="number"]:focus,
-.form-group textarea:focus {
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
-  outline: none;
-}
+/* :focus styles are now handled by index.css */
 
 /* File Upload Zone Styles */
 .wf-upload-zone {
@@ -243,7 +237,7 @@
 .primary-upload-button.wf-button {
   background: #10b981; /* Green for submit, as in mockup */
   color: white;
-  padding: 0.8rem 2rem;
+  padding: 0.8rem 1.6rem; /* Standardized padding */
   font-size: 1.05rem;
   font-weight: 500;
   border: none;

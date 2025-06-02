@@ -22,7 +22,7 @@ function UploadAgentPage() {
   const [fileError, setFileError] = useState(null); // For file specific errors like type/size
   const [successMessage, setSuccessMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  
+
   const navigate = useNavigate();
   const fileInputRef = useRef(null); // To trigger file input click
 
@@ -151,7 +151,7 @@ function UploadAgentPage() {
         <div className="form-section file-upload-section">
           <h2>Agent Package File</h2>
           {/* Styled File Upload Zone */}
-          <div 
+          <div
             className={`wf-upload-zone ${agentFile ? 'file-selected' : ''} ${fileError ? 'has-error' : ''}`}
             onClick={() => fileInputRef.current && fileInputRef.current.click()}
           >
@@ -161,7 +161,7 @@ function UploadAgentPage() {
               ref={fileInputRef}
               onChange={handleFileChange}
               style={{ display: 'none' }} // Hide the default input
-              accept={ALLOWED_EXTENSIONS.join(',')} 
+              accept={ALLOWED_EXTENSIONS.join(',')}
             />
             {!agentFile && (
               <>

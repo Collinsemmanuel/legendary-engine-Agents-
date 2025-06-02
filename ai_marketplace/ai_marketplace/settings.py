@@ -12,21 +12,46 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
+import environ # Import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+# BASE_DIR is ai_marketplace/ai_marketplace/
+# Project root (where manage.py is) is BASE_DIR.parent
+# .env file will be at BASE_DIR.parent.parent if it's at the root of the whole multi-project repo
+# Let's assume .env is at the Django project root (ai_marketplace/) for this setup
+# So, BASE_DIR here is correct for where manage.py is.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False),
+    DJANGO_ALLOWED_HOSTS=(list, [])
+)
+# Read .env file from the Django project root (ai_marketplace/.env)
+# This means the .env file should be inside the ai_marketplace directory,
+# or adjust the path to BASE_DIR.parent / '.env' if .env is in the global project root.
+# For docker-compose, env vars are passed directly, but for local dev .env is useful.
+# Let's assume .env is at the level of manage.py, so BASE_DIR / '.env'
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-y@v(%z#=jx73+%@h8s^x*z5%f7h*6w#(@@&qm80ao6!4s=&m&0'
+SECRET_KEY = env('DJANGO_SECRET_KEY', default='a_very_unsafe_default_secret_key_for_dev_only_change_it_if_no_env_var_is_set')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG') # Default is False from Env initialization
 
-ALLOWED_HOSTS = []
+# Get ALLOWED_HOSTS from env var, split by space. Default to empty list.
+# Example: DJANGO_ALLOWED_HOSTS="localhost 127.0.0.1 [::1] backend"
+ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=['localhost', '127.0.0.1'])
+# If running in Docker with Nginx proxy, 'backend' (service name) might be needed if requests come from there.
+# Or, more commonly, configure Nginx to set X-Forwarded-Host and use USE_X_FORWARDED_HOST = True
+
+# If your web server is behind a proxy (like Nginx in Docker Compose),
+# these settings help Django understand the original request scheme and host.
+USE_X_FORWARDED_HOST = True # If your proxy sets X-Forwarded-Host
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https') # If your proxy sets X-Forwarded-Proto for https
 
 
 # Application definition
@@ -77,11 +102,13 @@ WSGI_APPLICATION = 'ai_marketplace.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': env.db_url(
+        'DATABASE_URL', # e.g. postgresql://user:pass@host:port/dbname
+        default=f"sqlite:///{os.path.join(BASE_DIR, 'db.sqlite3')}"
+    )
 }
+# Ensure the DATABASE_URL in .env or docker-compose environment matches this structure.
+# Example for docker-compose: postgresql://admin:admin@db:5432/marketplace
 
 
 # Password validation
